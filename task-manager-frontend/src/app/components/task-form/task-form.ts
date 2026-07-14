@@ -13,7 +13,7 @@ import { finalize } from 'rxjs';
   templateUrl: './task-form.html',
   styleUrls: ['./task-form.css'],
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule] // <-- ADICIONE ESSE IMPORTS AQUI!
+  imports: [CommonModule, RouterModule, ReactiveFormsModule]
 })
 export class TaskFormComponent implements OnInit {
   taskForm: FormGroup;
@@ -72,7 +72,7 @@ export class TaskFormComponent implements OnInit {
           alert('Dados salvos com absoluto sucesso!');
           this.router.navigate(['/tasks']);
         },
-        error: () => alert('Ocorreu um problema ao salvar sua tarefa.')
+        error: () => alert('Ocorreu um problema ao salvar a tarefa.')
       });
   }
 }
