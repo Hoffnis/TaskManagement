@@ -1,0 +1,68 @@
+<div class="list-container">
+  <div class="header-section">
+    <h2>Gerenciador de Tarefas</h2>
+    <button routerLink="/tasks/new" class="btn-primary">Criar Nova Tarefa</button> 
+  </div>
+
+  <div class="filter-bar">
+    <div class="filter-group">
+      <label>Filtrar por Status:</label> 
+      <select [(ngModel)]="statusFilter" (change)="aplicarFiltros()">
+        <option value="">Todos</option>
+        <option value="PENDENTE">Pendente</option>
+        <option value="EM_ANDAMENTO">Em Andamento</option>
+        <option value="CONCLUIDA">Concluída</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Responsável:</label> 
+      <input type="text" [(ngModel)]="responsavelFilter" placeholder="Nome do responsável..." (keyup.enter)="aplicarFiltros()">
+    </div>
+
+    <button (click)="aplicarFiltros()" class="btn-secondary">Filtrar</button>
+  </div>
+
+  <div *ngIf="loading" class="loading-overlay">
+  <div class="spinner"></div>
+  <p>Carregando tarefas...</p>
+</div>
+
+  <table *ngIf="tasks.length > 0">
+    <thead>
+      <tr>
+        <th>Título</th> 
+        <th>Responsável</th> 
+        <th>Status</th> 
+        <th>Criação</th> 
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks">
+        <td><strong>{{ task.titulo }}</strong></td>
+        <td>{{ task.responsavel }}</td>
+        <td>
+          <span class="status-badge" [attr.data-status]="task.status">
+            {{ task.status }}
+          </span>
+        </td>
+        <td>{{ task.dataCriacao | date:'dd/MM/yyyy HH:mm' }}</td>
+        <td>
+          <button [routerLink]="['/tasks/edit', task.id]" class="btn-edit">Editar</button> 
+          <button (click)="excluirTarefa(task.id)" class="btn-delete">Excluir</button> 
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && tasks.length === 0" class="empty-state">
+    <p>Nenhuma tarefa localizada.</p>
+  </div>
+
+  <div class="pagination" *ngIf="totalPaginas > 1">
+    <button [disabled]="paginaAtual === 0" (click)="carregarTarefas(paginaAtual - 1)">Anterior</button>
+    <span>Página {{ paginaAtual + 1 }} de {{ totalPaginas }}</span>
+    <button [disabled]="paginaAtual === totalPaginas - 1" (click)="carregarTarefas(paginaAtual + 1)">Próxima</button>
+  </div>
+</div>

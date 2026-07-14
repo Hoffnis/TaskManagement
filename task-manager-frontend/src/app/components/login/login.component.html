@@ -1,0 +1,28 @@
+<div class="login-container">
+  <h2>Acesso ao Sistema</h2>
+  
+  <form [formGroup]="loginForm" (ngSubmit)="efetuarLogin()">
+    <div class="login-card">
+      <div class="logo-circle">
+  🔐
+</div>
+      <label for="username">Usuário:</label>
+      <input id="username" type="text" formControlName="username" placeholder="Digite seu usuário">
+      <small *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+        O usuário é obrigatório.
+      </small>
+    </div>
+
+    <div>
+      <label for="password">Senha:</label>
+      <input id="password" type="password" formControlName="password" placeholder="Digite sua senha">
+      <small *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        A senha é obrigatória.
+      </small>
+    </div>
+
+    <button type="submit" [disabled]="loginForm.invalid || loading">
+      {{ loading ? 'Autenticando...' : 'Entrar' }}
+    </button>
+  </form>
+</div>

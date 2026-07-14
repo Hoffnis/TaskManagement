@@ -1,0 +1,45 @@
+HTML
+<div class="form-container">
+  <h2>{{ taskId ? 'Atualizar Detalhes da Tarefa' : 'Cadastrar Nova Tarefa' }}</h2> 
+
+  <form [formGroup]="taskForm" (ngSubmit)="salvar()">
+    
+    <div class="form-group">
+      <label for="titulo">Título da Tarefa:</label> 
+      <input id="titulo" type="text" formControlName="titulo" placeholder="">
+      <small class="error-msg" *ngIf="taskForm.get('titulo')?.invalid && taskForm.get('titulo')?.touched">
+        Insira um título válido (mínimo de 3 caracteres). 
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="descricao">Descrição Completa:</label> 
+      <textarea id="descricao" formControlName="descricao" rows="4" placeholder="Detalhes do que precisa ser realizado..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="responsavel">Nome do Responsável:</label> 
+      <input id="responsavel" type="text" formControlName="responsavel" placeholder="">
+      <small class="error-msg" *ngIf="taskForm.get('responsavel')?.invalid && taskForm.get('responsavel')?.touched">
+        Você precisa indicar um responsável pela entrega. 
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="status">Status da Entrega:</label> 
+      <select id="status" formControlName="status">
+        <option value="PENDENTE">Pendente</option>
+        <option value="EM_ANDAMENTO">Em Andamento</option>
+        <option value="CONCLUIDA">Concluída</option>
+      </select>
+    </div>
+
+    <div class="btn-row">
+      <button type="button" routerLink="/tasks" class="btn-cancel">Cancelar</button>
+      <button type="submit" [disabled]="taskForm.invalid || loading" class="btn-submit">
+        {{ loading ? 'Salvando...' : 'Salvar Informações' }} 
+      </button>
+    </div>
+
+  </form>
+</div>
