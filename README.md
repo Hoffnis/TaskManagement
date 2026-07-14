@@ -169,6 +169,16 @@ task-management/
 └── task-manager-frontend/
 ```
 
+## Decisões Arquitetais
+
+A aplicação foi desenvolvida seguindo arquitetura em camadas (Controller, Service e Repository), com separação entre entidades de domínio e DTOs. Reduzindo o acoplamento, melhorando a organização do código e facilitando testes e manutenção.
+
+A autenticação foi implementada utilizando Spring Security com JWT, permitindo uma API REST adequada para integração com o frontend. O tratamento de exceções foi centralizado através de um GlobalExceptionHandler, garantindo respostas padronizadas para erros da aplicação.
+
+Para facilitar a implantação e execução em diferentes ambientes, a aplicação foi containerizada com Docker e documentada automaticamente utilizando Swagger/OpenAPI. Além disso, foram implementados testes unitários para as camadas de service e controller, bem como uma pipeline de integração contínua utilizando GitHub Actions para execução automática dos testes.
+
+A implementação utilizando NamedJdbcTemplate foi identificada como um diferencial no enunciado. Considerando o tempo disponível e que os requisitos funcionais estavam plenamente atendidos com Spring Data JPA, priorizei a entrega das funcionalidades obrigatórias, autenticação JWT, testes automatizados, Docker e integração com o frontend.
+
 ---
 
 ## Autor
